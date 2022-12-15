@@ -1,9 +1,7 @@
 package hello.core.order;
 
-import hello.core.member.Grade;
-import hello.core.member.Member;
-import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    MemberRepository memberRepository = new MemoryMemberRepository();
+    MemberService memberService = new MemberServiceImpl(memberRepository);
+    OrderService orderService = new OrderServiceImpl(memberRepository, new FixDiscountPolicy());
 
     @Test
     void createOrder() {
