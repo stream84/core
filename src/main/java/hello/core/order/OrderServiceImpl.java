@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor        //롬복사용
+//@RequiredArgsConstructor        //롬복사용
 public class OrderServiceImpl implements OrderService{
     
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -22,10 +23,10 @@ public class OrderServiceImpl implements OrderService{
 
     private final DiscountPolicy discountPolicy;
 
-//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     //@Autowired 자동 주입시 타입이 같으면 필드명, 파라미터명 으로도 조회 시도함
 
