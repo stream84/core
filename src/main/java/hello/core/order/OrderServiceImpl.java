@@ -11,21 +11,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderServiceImpl implements OrderService{
-
+    
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
+    
+    //필드 주입은 테스트에서만 사용하자
     private MemberRepository memberRepository;
     private DiscountPolicy discountPolicy;
-
-    @Autowired(required = false)
-    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
-        System.out.println("OrderServiceImpl.setDiscountPolicy");
-        this.discountPolicy = discountPolicy;
-    }
-    @Autowired
-    public void setMemberRepository(MemberRepository memberRepository) {
-        System.out.println("OrderServiceImpl.setMemberRepository");
-        this.memberRepository = memberRepository;
-    }
 
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
@@ -34,6 +25,13 @@ public class OrderServiceImpl implements OrderService{
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+
+    @Autowired
+    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
