@@ -8,6 +8,7 @@ import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,15 @@ public class OrderServiceImpl implements OrderService{
     
     //필드 주입은 테스트에서만 사용하자
     private final MemberRepository memberRepository;
+
     private final DiscountPolicy discountPolicy;
+
+//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    //@Autowired 자동 주입시 타입이 같으면 필드명, 파라미터명 으로도 조회 시도함
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
